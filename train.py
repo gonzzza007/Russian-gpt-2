@@ -71,7 +71,7 @@ def randomize(context, hparams, p):
 
 def main():
     args = parser.parse_args()
-    enc = encoder.get_encoder(args.model_name)
+    enc = encoder.get_encoder(args.model_name, '')
     hparams = model.default_hparams()
     with open(os.path.join('models', args.model_name, 'hparams.json')) as f:
         hparams.override_from_dict(json.load(f))
@@ -149,7 +149,7 @@ def main():
         summary_log = tf.summary.FileWriter(
             os.path.join(CHECKPOINT_DIR, args.run_name))
 
-        saver = tf.train.Saver(
+        saver = tf.compat.v1.train.Saver(
             var_list=all_vars,
             max_to_keep=5,
             keep_checkpoint_every_n_hours=2)

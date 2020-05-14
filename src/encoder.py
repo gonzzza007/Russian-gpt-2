@@ -130,9 +130,9 @@ class Encoder:
         return text
 
 def get_encoder(model_name, models_dir):
-    with open(os.path.join('gpt2/models', model_name, 'encoder2.json'), 'r', encoding="utf-8") as f:
+    with open(os.path.join('models', model_name, 'encoder2.json'), 'r', encoding="utf-8") as f:
         encoder = json.load(f)
-    with open(os.path.join('gpt2/models', model_name, 'vocab2.bpe'), 'r', encoding="utf-8") as f:
+    with open(os.path.join('models', model_name, 'vocab2.bpe'), 'r', encoding="utf-8") as f:
         bpe_data = f.read()
     bpe_merges = [tuple(merge_str.split()) for merge_str in bpe_data.split('\n')[1:-1]]
     return Encoder(

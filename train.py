@@ -114,7 +114,7 @@ def main():
             top_k=args.top_k,
             top_p=args.top_p)
 
-        all_vars = [v for v in tf.trainable_variables() if 'model' in v.name]
+        all_vars = [v for v in tf.compat.v1.trainable_variables() if 'model' in v.name]
         train_vars = [v for v in all_vars if '/h' in v.name] if args.only_train_transformer_layers else all_vars
 
         if args.optimizer == 'adam':
@@ -153,7 +153,7 @@ def main():
             var_list=all_vars,
             max_to_keep=5,
             keep_checkpoint_every_n_hours=2)
-        sess.run(tf.global_variables_initializer())
+        sess.run(tf.compat.v1.global_variables_initializer())
 
         if args.restore_from == 'latest':
             ckpt = tf.train.latest_checkpoint(
